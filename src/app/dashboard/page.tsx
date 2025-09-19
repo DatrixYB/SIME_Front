@@ -93,16 +93,17 @@ const [lowStockProducts, setLowStockProducts] = useState<LowStockProduct[]>([])
       }
         const fetchStock = async () => {
         try {
-          const stockData = await getProductsLowStock();
-          console.log("Fetched products:", stockData);
-            setLowStockProducts(stockData);
+          // const stockData = await getProductsLowStock();
+          // console.log("Fetched products:", stockData);
+            // setLowStockProducts(stockData);
+            console.log("No se pudo cargar el stock");
         } catch (error) {
           console.error("Error fetching products:", error);
         }
       }
       fetchStats();
       fetchSales();
-      fetchStock();
+      // fetchStock();
     }, []);
   
 
