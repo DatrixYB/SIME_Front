@@ -7,12 +7,13 @@ export const config = {
 
 export async function middleware(req: NextRequest) {
   const currentPath = req.nextUrl.pathname;
-
+  console.log('Current Path:', currentPath);
   if (!currentPath.startsWith('/dashboard')) return NextResponse.next();
 
   const accessToken = req.cookies.get('access_token')?.value;
   const refreshToken = req.cookies.get('refresh_token')?.value;
-
+  console.log("middleware");
+  console.log(accessToken);
   if (!accessToken || !refreshToken) {
     console.log('❌ Tokens ausentes');
     return NextResponse.redirect(new URL('/', req.url));
