@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { getValidate, getRefreshToken } from './services/auth-service';
 
-// Configuración de rutas protegidas
 export const config = {
   matcher: ['/dashboard/:path*'],
 };
@@ -8,55 +8,44 @@ export const config = {
 export async function middleware(req: NextRequest) {
   const currentPath = req.nextUrl.pathname;
 
-  // Solo proteger rutas que empiecen con /dashboard
   if (!currentPath.startsWith('/dashboard')) return NextResponse.next();
 
-  // Obtener tokens desde cookies
   const accessToken = req.cookies.get('access_token')?.value;
   const refreshToken = req.cookies.get('refresh_token')?.value;
-  // console.log('Tokens:', { accessToken, refreshToken });
-  // console.log(req.cookies)
-  // console.log(req.credentials)
-  // Si no hay tokens, redirigir al login
+
   if (!accessToken || !refreshToken) {
     console.log('❌ Tokens ausentes');
     return NextResponse.redirect(new URL('/', req.url));
   }
 
-  // Validar access_token con tu backend
-  const validateRes = await fetch('http://localhost:3001/auth/validate', {
-    method: 'GET',
-    headers: { Authorization: `Bearer ${accessToken}` },
-  });
+  try {
+    const user = await getValidate(accessToken);
+    console.log('✅ Token válido:', user);
+    return NextResponse.next();
+  } catch (error: any) {
+    if (error.response?.status === 401) {
+      console.log('⚠️ Access token inválido, intentando refresh');
 
-  // Si access_token inválido, intentar refresh
-  if (validateRes.status === 401) {
-    console.log('⚠️ Access token inválido, intentando refresh');
+      try {
+        const refreshed = await getRefreshToken(refreshToken);
+        const newAccessToken = refreshed.access_token;
 
-    const refreshRes = await fetch('http://localhost:3001/auth/refresh', {
-      method: 'GET',
-      headers: { Authorization: `Bearer ${refreshToken}` },
-    });
+        const response = NextResponse.next();
+        response.cookies.set('access_token', newAccessToken, {
+          httpOnly: true,
+          sameSite: 'strict',
+          path: '/',
+          maxAge: 60 * 15,
+        });
 
-    if (refreshRes.status === 401) {
-      console.log('❌ Refresh token inválido, redirigiendo al login');
-      return NextResponse.redirect(new URL('/', req.url));
+        return response;
+      } catch (refreshError: any) {
+        console.log('❌ Refresh token inválido, redirigiendo al login');
+        return NextResponse.redirect(new URL('/', req.url));
+      }
     }
 
-    const { access_token: newAccessToken } = await refreshRes.json();
-
-    // Setear nuevo access_token en cookies del navegador
-    const response = NextResponse.next();
-    response.cookies.set('access_token', newAccessToken, {
-      httpOnly: true,
-      sameSite: 'strict',
-      path: '/',
-      maxAge: 60 * 15, // 15 minutos
-    });
-
-    return response;
+    console.error('Error inesperado en validación:', error);
+    return NextResponse.redirect(new URL('/', req.url));
   }
-
-  return NextResponse.next();
 }
-// 

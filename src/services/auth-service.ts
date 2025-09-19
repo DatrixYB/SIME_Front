@@ -43,6 +43,23 @@ export const getUserSignIn = async (payload: { email: string; password: string }
 //   const { data } = await axiosClient.post('/auth/login', { email:payload.email, password:payload.password })
 //   return data
 // }
+export const getRefreshToken = async (refreshToken: string): Promise<User> => {
+  const { data } = await axiosClient.get('/auth/refresh', {
+    headers: {
+      Authorization: `Bearer ${refreshToken}`
+    }
+  });
+  return data;
+};
+export const getValidate = async (accessToken:string): Promise<User> => {
+  const { data } = await axiosClient.get('/auth/validate', {
+    headers: {
+      Authorization: `Bearer ${accessToken}`
+    }
+  });
+  return data;
+};
+
 
 export const getUserById = async (id: number): Promise<User> => {
   const { data } = await axiosClient.get(`/auth/${id}`)
