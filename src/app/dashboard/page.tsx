@@ -93,17 +93,18 @@ const [lowStockProducts, setLowStockProducts] = useState<LowStockProduct[]>([])
       }
         const fetchStock = async () => {
         try {
-          // const stockData = await getProductsLowStock();
-          // console.log("Fetched products:", stockData);
-            // setLowStockProducts(stockData);
-            console.log("No se pudo cargar el stock");
+          
+          const stockData = await getProductsLowStock();
+          console.log("Fetched products:", stockData);
+            setLowStockProducts(stockData);
+            // console.log("No se pudo cargar el stock");
         } catch (error) {
-          console.error("Error fetching products:", error);
+           console.error('Error en low-stock API:', error);
         }
       }
       fetchStats();
       fetchSales();
-      // fetchStock();
+      fetchStock();
     }, []);
   
 
