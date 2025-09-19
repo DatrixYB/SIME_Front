@@ -28,7 +28,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
           setUser(res.user);
         } else {
           setUser(null); // token inválido o expirado
-          router.push('/'); 
+          // router.push('/'); 
         }
       } catch (err) {
         console.error('Error al obtener usuario:', err);

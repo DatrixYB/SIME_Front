@@ -8,11 +8,12 @@ export const config = {
 export async function middleware(req: NextRequest) {
   const currentPath = req.nextUrl.pathname;
   console.log('Current Path:', currentPath);
+  const accessToken = req.cookies.get('access_token')?.value;
+  const refreshToken = req.cookies.get('refresh_token')?.value;
+    const user = await getValidate(accessToken);
   NextResponse.next()
   // if (!currentPath.startsWith('/dashboard')) return NextResponse.next();
 
-  // const accessToken = req.cookies.get('access_token')?.value;
-  // const refreshToken = req.cookies.get('refresh_token')?.value;
   // console.log("middleware");
   // console.log(accessToken);
   // if (!accessToken || !refreshToken) {
@@ -21,7 +22,6 @@ export async function middleware(req: NextRequest) {
   // }
 
   // try {
-  //   const user = await getValidate(accessToken);
   //   console.log('✅ Token válido:', user);
   //   return NextResponse.next();
   // } catch (error: any) {
