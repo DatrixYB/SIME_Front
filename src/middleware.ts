@@ -10,18 +10,21 @@ export async function middleware(req: NextRequest) {
   const currentPath = req.nextUrl.pathname;
   console.log('Current Path:', currentPath);
   console.log('REQ:', req);
+  console.log(localStorage.getItem('access_token'))
+  console.log(localStorage.getItem('refresh_token'))
   if (!currentPath.startsWith('/dashboard')) return NextResponse.next();
 
   const authHeader = req.headers.get('authorization');
+  const token = localStorage.getItem('access_token');
 
   console.log('🔐 Authorization Header:', authHeader);
 
-  if (!authHeader) {
+  if (!token) {
     console.log('❌ Token ausente');
     return NextResponse.redirect(new URL('/', req.url));
   }
 
-  const accessToken = authHeader.replace('Bearer ', '');
+  const accessToken = token
 
   try {
     const user = await getValidate(accessToken);
