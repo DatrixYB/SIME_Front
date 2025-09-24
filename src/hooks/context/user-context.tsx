@@ -39,6 +39,11 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     fetchUser();
   }, []);
 
+      if (user?.role !== UserRole.ADMIN && user?.role !== UserRole.SELLER) {
+          return <div className="p-6">Acceso denegado. No tenés permiso para ver este contenido.</div>;
+      //  console.log("NO TENES PERMISO")
+      //  console.log(user)
+        }
   return (
     <UserContext.Provider value={{ user, setUser }}>
       {children}
