@@ -1,3 +1,4 @@
+//  pos-frontend/src/middleware.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { getValidate, getRefreshToken } from './services/auth-service';
 
@@ -34,7 +35,7 @@ export async function middleware(req: NextRequest) {
         const response = NextResponse.next();
         response.cookies.set('access_token', newAccessToken, {
           httpOnly: true,
-          sameSite: 'strict',
+          sameSite: 'none',
           path: '/',
           maxAge: 60 * 15,
         });
