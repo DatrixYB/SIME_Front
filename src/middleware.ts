@@ -10,7 +10,9 @@ export async function middleware(req: NextRequest) {
   const currentPath = req.nextUrl.pathname;
   console.log('Current Path:', currentPath);
   if (!currentPath.startsWith('/dashboard')) return NextResponse.next();
-  if (currentPath.endsWith(config.matcher[0])) return NextResponse.next();
+  const matcherPath = config.matcher[0].replace('/:path*', '');
+
+  if (currentPath.endsWith(matcherPath)) return NextResponse.next();
 
   // const accessToken = req.cookies.get('access_token')?.value;
   // const refreshToken = req.cookies.get('refresh_token')?.value;
