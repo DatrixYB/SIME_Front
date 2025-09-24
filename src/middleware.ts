@@ -10,47 +10,15 @@ export async function middleware(req: NextRequest) {
   const currentPath = req.nextUrl.pathname;
   console.log('Current Path:', currentPath);
   if (!currentPath.startsWith('/dashboard')) return NextResponse.next();
+  if (currentPath.endsWith('dashboard')) return NextResponse.next();
 
-  const accessToken = req.cookies.get('access_token')?.value;
-  const refreshToken = req.cookies.get('refresh_token')?.value;
+  // const accessToken = req.cookies.get('access_token')?.value;
+  // const refreshToken = req.cookies.get('refresh_token')?.value;
   console.log("middleware");
   
-  console.log(accessToken);
-  // if (!accessToken || !refreshToken) {
-  //   console.log('❌ Tokens ausentes');
-  //   return NextResponse.redirect(new URL('/', req.url));
-  // }
 
-  try {
-    const user = await getValidate(accessToken);
-    console.log('✅ Token válido:', user);
-    return NextResponse.next();
-  } catch (error: any) {
-    if (error.response?.status === 401) {
-      console.log('⚠️ Access token inválido, intentando refresh');
 
-      try {
-        const refreshed = await getRefreshToken(refreshToken);
-        const newAccessToken = refreshed.access_token;
-
-        const response = NextResponse.next();
-        response.cookies.set('access_token', newAccessToken, {
-          httpOnly: true,
-          sameSite: 'none',
-          path: '/',
-          maxAge: 60 * 15,
-        });
-
-        return response;
-      } catch (refreshError: any) {
-        console.log('❌ Refresh token inválido, redirigiendo al login');
-        return NextResponse.redirect(new URL('/', req.url));
-        //  return NextResponse.next();
-      }
-    }
-
-    console.error('Error inesperado en validación:', error);
-    // return NextResponse.redirect(new URL('/', req.url));
-     return NextResponse.next();
-  }
+ 
+    return NextResponse.redirect(new URL('/', req.url));
+  
 }

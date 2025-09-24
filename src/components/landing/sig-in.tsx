@@ -79,7 +79,10 @@ const result = await getUserSignIn(form)
 console.log('🔐 Tokens recibidos: FRONT', result);
 localStorage.setItem('access_token', result.access_token);
 localStorage.setItem('refresh_token', result.refresh_token);
+
+console.log('🔐 tokens set front signIN acces')
 console.log(localStorage.getItem('access_token'));
+console.log('🔐 tokens set front signIN ref')
 console.log(localStorage.getItem('refresh_token'));
       // const result = true
 
