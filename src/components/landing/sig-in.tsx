@@ -75,7 +75,9 @@ export default function SignInForm() {
       // });
       
 const result = await getUserSignIn(form)
-      
+      // const data = await response.json();
+console.log('🔐 Tokens recibidos: FRONT', result);
+
       // const result = true
 
 if (!result) {
