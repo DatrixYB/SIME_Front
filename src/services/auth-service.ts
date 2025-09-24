@@ -19,7 +19,7 @@ export type User = {
   code?: string
 }
 
-export const getUserSignIn = async (payload: { email: string; password: string }): Promise<{ success: boolean; message?: string; user?: User }> => {
+export const getUserSignIn = async (payload: { email: string; password: string }): Promise<{ success: boolean; message?: string; user?: User , access_token?:string}> => {
   try {
     console.log("Payload login:", payload);
 
