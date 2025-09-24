@@ -19,9 +19,9 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     const fetchUser = async () => {
       try {
         // Llamada al backend, cookies HTTP-only serán enviadas automáticamente
-        const accessToken = localStorage.getItem('access_token');
-console.log("TOKEN  USER CONTEXT USER PROVIDER", accessToken)
-alert("TOKEN  USER CONTEXT USER PROVIDER"+ accessToken)
+        // const accessToken = localStorage.getItem('access_token');
+// console.log("TOKEN  USER CONTEXT USER PROVIDER", accessToken)
+// alert("TOKEN  USER CONTEXT USER PROVIDER"+ accessToken)
         const res = await getMe();
         // const res = (await cookies()).get('access_token') 
         // ? await getMe() : { success: false, user: null };
