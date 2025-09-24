@@ -33,14 +33,15 @@ export const getPurchaseOrderById = async (id: number): Promise<PurchaseOrderIte
 export const createPurchaseOrderItem = async (
   payload: Omit<PurchaseOrderItem, 'id'>
 ): Promise<PurchaseOrderItem> => {
-  // alert(JSON.stringify(payload))
+  alert(JSON.stringify(payload))
   const { data } = await axiosClient.post('/purchaseorder-item', payload)
   return data
 }
 export const createPurchaseOrderItems = async (
   payload: Omit<PurchaseOrderItems, 'id'>
 ): Promise<PurchaseOrderItems> => {
-  // alert(JSON.stringify(payload))
+  alert(JSON.stringify(payload))
+  alert('payload de BULK ')
   const { data } = await axiosClient.post('/purchaseorder-item/bulk', payload)
   return data
 }

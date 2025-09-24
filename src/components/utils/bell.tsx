@@ -11,9 +11,9 @@ export default function NotificationBell() {
   useEffect(() => {
     const fetchLowStock = async () => {
       try {
-        // const products = await getProductsLowStock()
+        const products = await getProductsLowStock()
         // products =[0]
-        // setLowStockProducts(products)
+        setLowStockProducts(products)
         console.log("No se pudo cargar el stock");
       } catch (error) {
         console.error('Error al obtener productos con bajo stock:', error)

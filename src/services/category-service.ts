@@ -6,8 +6,17 @@ export type Category = {
 }
 
 export const getCategory = async (): Promise<Category[]> => {
-  const { data } = await axiosClient.get('/Category')
-  return data
+
+  try {
+      const { data } = await axiosClient.get('/Category')
+
+      return data
+  } catch (error) {
+    console.error('Error en getCategory:', error)
+    // res.status(500).json({ error: 'Error interno del servidor' })
+    return []
+  }
+
 }
 
 export const getCategoryById = async (id: number): Promise<Category> => {

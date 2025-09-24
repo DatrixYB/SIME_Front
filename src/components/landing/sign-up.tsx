@@ -55,7 +55,7 @@ export function SignUp() {
       password: form.password,
       code: form.code,
       });
-      alert("Respuesta"+JSON.stringify(res))
+      // alert("Respuesta"+JSON.stringify(res))
       
       // if (!res.ok) {
       //   const data = await res.json().catch(() => ({}));

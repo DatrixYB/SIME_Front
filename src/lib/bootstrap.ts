@@ -7,6 +7,7 @@ console.log(baseURL)
 // Crea instancia de cliente Axios
 const axiosClient = axios.create({
   baseURL,
+  withCredentials: true, 
   headers: {
     'Content-Type': 'application/json',
     Accept: 'application/json',

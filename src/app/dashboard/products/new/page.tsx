@@ -327,9 +327,11 @@ if (existingItemIndex !== -1) {
         await createPurchaseOrderItem(puchaseorder_item_payload)
       } else if (validProducts.length > 1 ) {
         const productsPayloadapi = JSON.stringify(productsPayload);
+        alert("Paylaod de productos para crear múltiples:\n")
         console.log('Payload de productos para crear múltiples:', productsPayloadapi);
         // alert('Payload de productos para crear múltiples:');
         const dataPayloadArray = productsPayload.products.map(({ id, ...rest }) => rest)
+        console.log("Productos :",dataPayloadArray)
         const productsCreated = await createProducts(productsPayload);
         const purchaseorder_item_payload = {
           orderId: orderCreated.id,
@@ -339,7 +341,10 @@ if (existingItemIndex !== -1) {
             unitPrice: product.price                // Precio individual
           }))
         };
+
+        // alert("Order Item:\n")
         // alert(JSON.stringify(purchaseorder_item_payload))
+        // console.log("payload de items para purchase order item:\n",purchaseorder_item_payload)
         await createPurchaseOrderItems(purchaseorder_item_payload)
       }else if (validProducts.length === 1 && validProducts[0].isActive== false){
      alert(validProducts.length)
