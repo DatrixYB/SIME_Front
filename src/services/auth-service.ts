@@ -46,7 +46,8 @@ export const getUserSignIn = async (payload: { email: string; password: string }
 export const getRefreshToken = async (refreshToken: string): Promise<User> => {
   const { data } = await axiosClient.get('/auth/refresh', {
     headers: {
-      Authorization: `Bearer ${refreshToken}`
+      Authorization: `Bearer ${refreshToken}`,
+      withCredentials: true,
     }
   });
   return data;
@@ -54,7 +55,8 @@ export const getRefreshToken = async (refreshToken: string): Promise<User> => {
 export const getValidate = async (accessToken:string): Promise<User> => {
   const { data } = await axiosClient.get('/auth/validate', {
     headers: {
-      Authorization: `Bearer ${accessToken}`
+      Authorization: `Bearer ${accessToken}`,
+      withCredentials: true,
     }
   });
   return data;
@@ -69,7 +71,9 @@ export const getUserById = async (id: number): Promise<User> => {
 export const createUserSignUp = async (payload: Omit<User, 'id' | 'createdAt' | 'updatedAt'>): Promise<User> => {
     // alert("create"+JSON.stringify(payload))
   console.log("payload service PAY", payload)
-  const { data } = await axiosClient.post('/auth/register',  { email:payload.email, name:payload.name, password:payload.password, code:payload.code ,role:UserRole.ADMIN})
+  const { data } = await axiosClient.post('/auth/register',  { email:payload.email, name:payload.name, password:payload.password, code:payload.code ,role:UserRole.ADMIN}
+    ,{ withCredentials: true }
+  )
   return data
 }
 
