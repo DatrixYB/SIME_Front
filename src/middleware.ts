@@ -14,11 +14,12 @@ export async function middleware(req: NextRequest) {
   const accessToken = req.cookies.get('access_token')?.value;
   const refreshToken = req.cookies.get('refresh_token')?.value;
   console.log("middleware");
+  
   console.log(accessToken);
-  if (!accessToken || !refreshToken) {
-    console.log('❌ Tokens ausentes');
-    return NextResponse.redirect(new URL('/', req.url));
-  }
+  // if (!accessToken || !refreshToken) {
+  //   console.log('❌ Tokens ausentes');
+  //   return NextResponse.redirect(new URL('/', req.url));
+  // }
 
   try {
     const user = await getValidate(accessToken);
@@ -43,11 +44,13 @@ export async function middleware(req: NextRequest) {
         return response;
       } catch (refreshError: any) {
         console.log('❌ Refresh token inválido, redirigiendo al login');
-        return NextResponse.redirect(new URL('/', req.url));
+        // return NextResponse.redirect(new URL('/', req.url));
+         return NextResponse.next();
       }
     }
 
     console.error('Error inesperado en validación:', error);
-    return NextResponse.redirect(new URL('/', req.url));
+    // return NextResponse.redirect(new URL('/', req.url));
+     return NextResponse.next();
   }
 }
