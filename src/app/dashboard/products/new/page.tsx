@@ -238,9 +238,9 @@ if (existingItemIndex !== -1) {
   }
 
   const handleCheckout = async () => {
-    alert(`Venta procesada por $${getTotalAmount().toFixed(2)}\n total items: ${getTotalItems()}`)
+    // alert(`Venta procesada por $${getTotalAmount().toFixed(2)}\n total items: ${getTotalItems()}`)
     // alert(cart)
-    console.log('Orden creado con éxito\n' + JSON.stringify(cart, null, 2));
+    // console.log('Orden creado con éxito\n' + JSON.stringify(cart, null, 2));
     // alert(JSON.stringify(user))
     // Aquí enviarías a backend
     const orderPayload: PurchaseOrder = {
@@ -327,11 +327,11 @@ if (existingItemIndex !== -1) {
         await createPurchaseOrderItem(puchaseorder_item_payload)
       } else if (validProducts.length > 1 ) {
         const productsPayloadapi = JSON.stringify(productsPayload);
-        alert("Paylaod de productos para crear múltiples:\n")
-        console.log('Payload de productos para crear múltiples:', productsPayloadapi);
+        // alert("Paylaod de productos para crear múltiples:\n")
+        // console.log('Payload de productos para crear múltiples:', productsPayloadapi);
         // alert('Payload de productos para crear múltiples:');
         const dataPayloadArray = productsPayload.products.map(({ id, ...rest }) => rest)
-        console.log("Productos :",dataPayloadArray)
+        // console.log("Productos :",dataPayloadArray)
         const productsCreated = await createProducts(productsPayload);
         const purchaseorder_item_payload = {
           orderId: orderCreated.id,
@@ -347,7 +347,7 @@ if (existingItemIndex !== -1) {
         // console.log("payload de items para purchase order item:\n",purchaseorder_item_payload)
         await createPurchaseOrderItems(purchaseorder_item_payload)
       }else if (validProducts.length === 1 && validProducts[0].isActive== false){
-     alert(validProducts.length)
+    //  alert(validProducts.length)
         // alert('Payload de productos para UPDATE uno solo:\n' + JSON.stringify(productsPayload, null, 2))
         const { id, ...dataUpdatePayload } = productsPayload.products[0]
         // alert(JSON.stringify(id))

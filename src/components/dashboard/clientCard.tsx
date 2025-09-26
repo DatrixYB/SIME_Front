@@ -25,13 +25,13 @@ export default function ClientCard({ onClientCreated }: ClientCardProps) {
   const handleClientCreation = async (e: React.FormEvent) => {
     e.preventDefault();
     let cli;
-    alert(selected)
+    // alert(selected)
     // Aquí podrías agregar la lógica para crear el cliente
     if (selected === 'default') {
 
       setFormData({ name: "Cliente por defecto", email: "defaul@gmail.com", phone: "12312412" });
-      alert("data informada")
-      alert(JSON.stringify(formData))
+      // alert("data informada")
+      // alert(JSON.stringify(formData))
       cli = await createClient(formData);
       setId(cli.id);
       createdName = formData.name;

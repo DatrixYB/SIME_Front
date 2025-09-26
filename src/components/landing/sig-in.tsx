@@ -76,15 +76,15 @@ export default function SignInForm() {
       
 const result = await getUserSignIn(form)
       // const data = await response.json();
-console.log('🔐 Tokens recibidos: FRONT', result);
-localStorage.setItem('access_token', result.access_token);
-localStorage.setItem('refresh_token', result.refresh_token);
+// console.log('🔐 Tokens recibidos: FRONT', result);
+// localStorage.setItem('access_token', result.access_token);
+// localStorage.setItem('refresh_token', result.refresh_token);
 
-console.log('🔐 tokens set front signIN acces')
-console.log(localStorage.getItem('access_token'));
-console.log('🔐 tokens set front signIN ref')
-console.log(localStorage.getItem('refresh_token'));
-      // const result = true
+// console.log('🔐 tokens set front signIN acces')
+// console.log(localStorage.getItem('access_token'));
+// console.log('🔐 tokens set front signIN ref')
+// console.log(localStorage.getItem('refresh_token'));
+//       // const result = true
 
 if (!result) {
   throw new Error("No se pudo procesar la solicitud.");
@@ -246,7 +246,7 @@ if (!result.success) {
         )}
 
         {/* Remember / Forgot */}
-        <div className="flex items-center justify-between text-sm">
+        {/* <div className="flex items-center justify-between text-sm">
           <label className="flex items-center gap-2">
             <input
               type="checkbox"
@@ -261,6 +261,7 @@ if (!result.success) {
             Forgot password?
           </a>
         </div>
+         */}
 
         {/* Submit */}
         <Button

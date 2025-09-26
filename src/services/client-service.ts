@@ -37,7 +37,7 @@ export const getClientById = async (id: number): Promise<Client> => {
 
 export const createClient = async (payload: Omit<Client, 'id' | 'createdAt' | 'updatedAt'>): Promise<Client> => {
   console.log('Creating client with payload service:', payload);
-  alert(JSON.stringify(payload))
+  // alert(JSON.stringify(payload))
   const { data } = await axiosClient.post('/clients', payload)
   return data
 }
